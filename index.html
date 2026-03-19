@@ -562,7 +562,209 @@
   .send-btn:hover { background: #ff7a2a; transform: scale(1.05); }
   .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
-  /* SCROLLBAR */
+  /* DETAIL PANEL */
+  #detail-panel {
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    max-width: 900px;
+    animation: slideIn 0.2s ease;
+  }
+  #detail-panel.visible { display: flex; }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(16px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .detail-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .detail-back {
+    background: var(--border);
+    border: none;
+    color: var(--muted);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.78rem;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .detail-back:hover { color: var(--white); background: var(--card); }
+
+  .detail-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.4;
+  }
+
+  .detail-tag {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .detail-complete-btn {
+    margin-left: auto;
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .detail-complete-btn.done {
+    background: var(--green);
+    border-color: var(--green);
+    color: #000;
+  }
+  .detail-complete-btn:hover { border-color: var(--orange); color: var(--white); }
+
+  .detail-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .step-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.9rem 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    transition: border-color 0.15s;
+  }
+  .step-item:hover { border-color: var(--orange); }
+
+  .step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--border);
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    transition: all 0.2s;
+  }
+
+  .step-item.done .step-num {
+    background: var(--green);
+    color: #000;
+  }
+
+  .step-item.done .step-text {
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+
+  .step-text {
+    font-size: 0.88rem;
+    color: var(--white);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .step-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 1.5px solid var(--border);
+    flex-shrink: 0;
+    cursor: pointer;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    transition: all 0.2s;
+  }
+  .step-item.done .step-check {
+    background: var(--green);
+    border-color: var(--green);
+    color: #000;
+  }
+
+  /* ============ MOBILE ============ */
+  @media (max-width: 768px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+      position: fixed;
+      left: -280px;
+      top: 64px;
+      height: calc(100vh - 64px);
+      width: 280px;
+      z-index: 200;
+      transition: left 0.3s ease;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.5);
+    }
+
+    .sidebar.open { left: 0; }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      top: 64px;
+      background: rgba(0,0,0,0.5);
+      z-index: 199;
+    }
+    .sidebar-overlay.open { display: block; }
+
+    .main { padding: 1rem; }
+
+    .menu-btn {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--white);
+      margin-left: 0.5rem;
+    }
+
+    .progress-bar-wrap { flex-direction: column; gap: 0.75rem; }
+    .progress-pct { font-size: 1.8rem; }
+
+    .section-header { flex-direction: column; gap: 0.5rem; }
+
+    .detail-header { flex-wrap: wrap; gap: 0.75rem; }
+    .detail-complete-btn { width: 100%; text-align: center; }
+
+    #chat-panel { height: auto; min-height: 80vh; }
+    .chat-messages { max-height: 45vh; }
+  }
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
@@ -581,12 +783,14 @@
 <body>
 
 <header>
+  <button class="menu-btn" style="display:none" onclick="toggleSidebar()">☰</button>
   <div>
     <div class="logo">BAKUTORE FC</div>
     <div class="logo-sub">Owner Portal</div>
   </div>
   <div class="header-badge">🔒 加盟店専用</div>
 </header>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
 <div class="layout">
   <!-- SIDEBAR -->
@@ -682,6 +886,19 @@
       <div id="extra-content"></div>
     </div>
 
+    <!-- タスク詳細パネル -->
+    <div id="detail-panel">
+      <div class="detail-header">
+        <button class="detail-back" onclick="closeDetail()">← 戻る</button>
+        <div>
+          <div class="detail-title" id="detail-title"></div>
+          <div class="detail-tag" id="detail-tag"></div>
+        </div>
+        <button class="detail-complete-btn" id="detail-complete-btn" onclick="toggleDetailComplete()"></button>
+      </div>
+      <div class="detail-steps" id="detail-steps"></div>
+    </div>
+
     <!-- CHAT PANEL -->
     <div id="chat-panel">
       <div class="chat-header">
@@ -737,16 +954,16 @@ const phases = {
     color: 'var(--phase-1)',
     label: 'フェーズ 1',
     tasks: [
-      { id: 't1', name: 'キックオフMTGの日程確定', tag: '本部との打ち合わせ' },
-      { id: 't2', name: 'Gmailアカウント作成', tag: 'アカウント' },
-      { id: 't3', name: 'GoogleマップMEO登録', tag: 'Google' },
-      { id: 't4', name: '今後のスケジュール確認', tag: 'MTG当日' },
-      { id: 't5', name: 'Gmailアカウント共有（パスワード）', tag: 'MTG当日' },
-      { id: 't6', name: 'A1看板・チラシの本部依頼について確認', tag: 'MTG当日' },
-      { id: 't7', name: '広告依頼について確認', tag: 'MTG当日' },
-      { id: 't8', name: '料金決定', tag: 'MTG当日' },
-      { id: 't9', name: '防犯カメラの有無を決定', tag: 'MTG当日' },
-      { id: 't10', name: '約2週間後の進捗MTG日程調整', tag: 'MTG当日' },
+      { id: 't1', name: 'キックオフMTGの日程確定', tag: '本部との打ち合わせ', steps: ['本部担当者に連絡してMTG日程を調整する', '場所（オンライン or 対面）を確認する', 'MTG前に質問事項をまとめておく'] },
+      { id: 't2', name: 'Gmailアカウント作成', tag: 'アカウント', steps: ['gmail.com にアクセス', '「アカウントを作成」をクリック', '店舗用のメールアドレスを設定（例：bakutore.○○@gmail.com）', 'アカウント情報を本部に共有する'] },
+      { id: 't3', name: 'GoogleマップMEO登録', tag: 'Google', steps: ['Googleビジネスプロフィールにアクセス', 'ビジネス名：バク転 アクロバット教室 バクトレ○○店', 'カテゴリ：体操クラブを選択', '住所・連絡先を入力', '配達・出張は「いいえ」を選択', 'オーナー確認を完了させる', '営業時間を設定する', 'ビジネス説明文を追加（本部提供のテンプレを使用）', '店舗の外観・室内写真を追加する', '広告・ドメイン取得はスキップ'] },
+      { id: 't4', name: '今後のスケジュール確認', tag: 'MTG当日', steps: ['オープン目標日を決める', '各フェーズの期限を本部と合意する', 'スケジュール表を共有ドライブに保存する'] },
+      { id: 't5', name: 'Gmailアカウント共有（パスワード）', tag: 'MTG当日', steps: ['作成したGmailのアドレスとパスワードを本部に共有する', '共有方法はChatwork or LINEで送る'] },
+      { id: 't6', name: 'A1看板・チラシの本部依頼について確認', tag: 'MTG当日', steps: ['本部に依頼するか自分で作るか決める', '依頼する場合は別途料金が発生することを確認', 'デザインデータは共有ドライブ内にあることを確認'] },
+      { id: 't7', name: '広告依頼について確認', tag: 'MTG当日', steps: ['本部依頼か自社対応かを決める', '本部依頼の場合は別途料金が発生する', 'Google広告・Meta広告どちらを使うか検討する'] },
+      { id: 't8', name: '料金決定', tag: 'MTG当日', steps: ['体験レッスン料金を決める', '回数券の価格設定を決める', '入会金の設定を決める', '本部に料金内容を報告する'] },
+      { id: 't9', name: '防犯カメラの有無を決定', tag: 'MTG当日', steps: ['Safie One（本体¥41,800＋月額¥1,320）の導入を検討する', '導入する場合は本部経由で発注する（店舗に発送される）'] },
+      { id: 't10', name: '約2週間後の進捗MTG日程調整', tag: 'MTG当日', steps: ['MTGから2週間後の日程を本部と調整する', '進捗MTGはオンライン（Zoom or Google Meet）で実施'] },
     ]
   },
   2: {
@@ -755,14 +972,14 @@ const phases = {
     color: 'var(--phase-2)',
     label: 'フェーズ 2',
     tasks: [
-      { id: 't11', name: 'Chatworkアカウント作成（本部招待待ち）', tag: '連絡ツール' },
-      { id: 't12', name: '公式LINEアカウント作成（初回用）', tag: 'LINE' },
-      { id: 't13', name: '公式LINEアカウント作成（入会者用）', tag: 'LINE' },
-      { id: 't14', name: 'Airレジアカウント登録', tag: '決済' },
-      { id: 't15', name: 'Squareアカウント登録', tag: '決済' },
-      { id: 't16', name: 'PayPay導入', tag: '決済' },
-      { id: 't17', name: 'iPad（第5世代以降）購入', tag: '備品' },
-      { id: 't18', name: 'Squareカードリーダー購入', tag: '備品' },
+      { id: 't11', name: 'Chatworkアカウント作成', tag: '連絡ツール', steps: ['chatwork.com にアクセスしてアカウントを作成する', '本部からの招待リンクを待つ', '招待が届いたらグループに参加する'] },
+      { id: 't12', name: '公式LINEアカウント作成（初回体験用）', tag: 'LINE', steps: ['LINE公式アカウントマネージャーにアクセス', '初回体験者向けのアカウントを新規作成する', 'プロフィール画像・店舗名を設定する', '自動応答メッセージを設定する', '本部にアカウントIDを共有する'] },
+      { id: 't13', name: '公式LINEアカウント作成（入会者用）', tag: 'LINE', steps: ['入会者向けの別アカウントを作成する', 'プロフィール・挨拶メッセージを設定する', 'リッチメニューを設定する（本部テンプレート使用）'] },
+      { id: 't14', name: 'Airレジアカウント登録', tag: '決済', steps: ['airレジ公式サイトにアクセス', '本部が送ったAirレジ登録方法の手順を確認する', 'アカウントを作成・設定する', '動作確認をする（テスト決済）'] },
+      { id: 't15', name: 'Squareアカウント登録', tag: '決済', steps: ['squareup.com にアクセスしてアカウントを作成する', 'Squareカードリーダーを購入する', 'アカウントとカードリーダーを紐づける', '動作確認をする（テスト決済）'] },
+      { id: 't16', name: 'PayPay導入', tag: '決済', steps: ['PayPay for Businessにアカウントを作成する', '店舗情報を登録する', 'QRコードを発行・印刷する', '動作確認をする'] },
+      { id: 't17', name: 'iPad（第5世代以降）購入', tag: '備品', steps: ['iPad第5世代以降であればOK', 'AirレジはiPadで使用するため必須', 'Apple Store or 家電量販店で購入する', '購入後はAirレジアプリをインストールする'] },
+      { id: 't18', name: 'Squareカードリーダー購入', tag: '備品', steps: ['Squareの公式サイトから購入（約4,980円）', 'iPhoneまたはiPadに接続して使用する', '到着後すぐにSquareアプリと接続テストを行う'] },
     ]
   },
   3: {
@@ -771,18 +988,18 @@ const phases = {
     color: 'var(--phase-2)',
     label: 'フェーズ 2',
     tasks: [
-      { id: 't19', name: '電気の契約（各自）', tag: '設備' },
-      { id: 't20', name: 'エアコン設置（ミツモアで検索）', tag: '設備' },
-      { id: 't21', name: 'Wi-Fi手配', tag: '設備' },
-      { id: 't22', name: '保険加入（店舗・お客様用）', tag: '設備' },
-      { id: 't23', name: 'マット発注依頼（本部経由）', tag: '備品・本部依頼' },
-      { id: 't24', name: 'マット設置日程決定', tag: '備品・本部依頼' },
-      { id: 't25', name: 'スキルツリーマップ印刷発注（ラクする/出力屋さん）', tag: '印刷物' },
-      { id: 't26', name: '紙チケット回数券・招待カード発注（ラクスル）', tag: '印刷物' },
-      { id: 't27', name: 'ショップカード・スタンプカード発注', tag: '印刷物' },
-      { id: 't28', name: '店舗必須備品一式購入（会計・時計・三脚・文具・掃除・救急箱等）', tag: '備品' },
-      { id: 't29', name: '防犯カメラ Safie One 設置（任意）', tag: '備品・任意' },
-      { id: 't30', name: '店舗写真撮影（HP・PayPay用、店内・店外）', tag: '写真' },
+      { id: 't19', name: '電気の契約', tag: '設備', steps: ['物件の管理会社に電気会社を確認する', '各自で電力会社を選んで契約する', '開通日を確認しておく'] },
+      { id: 't20', name: 'エアコン設置', tag: '設備', steps: ['ミツモアで「エアコン導入」と検索する', '複数業者から見積もりを取る', '設置工事の日程を決める'] },
+      { id: 't21', name: 'Wi-Fi手配', tag: '設備', steps: ['光回線orポケットWi-Fiを選ぶ', '申し込みから開通まで2〜4週間かかるので早めに手続きする', '開通後に速度確認をする'] },
+      { id: 't22', name: '保険加入', tag: '設備', steps: ['店舗賠償責任保険に加入する', 'お客様にはワンデイ保険等の加入を推奨する', '加入証書の写しを本部に共有する'] },
+      { id: 't23', name: 'マット発注依頼（本部経由）', tag: '備品・本部依頼', steps: ['本部にマット発注を依頼する（エアー・エバー・チア）', '店舗規模を伝えて必要数を確認する', '納期確定後に連絡が来るので日程調整する'] },
+      { id: 't24', name: 'マット設置日程決定', tag: '備品・本部依頼', steps: ['本部スタッフが設置をサポートしてくれる', '設置当日の事前準備物を確認する（カッター・定規・マーカー・メジャー）', 'エアマット使用法・壁補強・レッスン進行方法を確認する', '店舗写真を撮影する（HP・PayPay用）'] },
+      { id: 't25', name: 'スキルツリーマップ印刷発注', tag: '印刷物', steps: ['Gドライブ内のデータを使用する', '店舗に貼れるサイズに合わせて発注（ラクするor出力屋さん）', '発注前に本部の確認を受ける'] },
+      { id: 't26', name: '紙チケット回数券・招待カード発注', tag: '印刷物', steps: ['Gドライブ内のデータを使用する', 'ラクスル（raksul.com）にて発注する', '発注前に本部の確認を受ける'] },
+      { id: 't27', name: 'ショップカード・スタンプカード発注', tag: '印刷物', steps: ['サイズ：名刺サイズ・二つ折り（横）', '用紙：上質紙・標準（180kg）・両面カラー', 'Gドライブのファイルを入れ込みPDFに変換してデータ送信', 'ラクスルにて発注する'] },
+      { id: 't28', name: '店舗必須備品一式購入', tag: '備品', steps: ['会計類（レジ・レジロール）', '時計', '三脚（レーン数分）', '文具類（ボールペン・バインダー・同意書保管ファイル）', '掃除類（ゴミ箱・ゴミ袋・掃除機・コロコロ）', 'お客様用ベンチ（座れる収納ボックスがおすすめ）', '下駄箱', 'トイレ用具', '救急箱（絆創膏・テーピング・氷嚢または瞬間冷却剤）', 'チラシいれ', 'A1立て看板'] },
+      { id: 't29', name: '防犯カメラ Safie One 設置（任意）', tag: '備品・任意', steps: ['本体¥41,800＋月額¥1,320（強制ではない）', '本部発注・店舗発送の形で対応してもらえる', '本部と連携することでスタッフ指導サポートにも使える'] },
+      { id: 't30', name: '店舗写真撮影', tag: '写真', steps: ['店内写真を横向きで撮影する', '店舗外観の写真を撮影する', 'HP用・PayPay用に使用するので明るく清潔な状態で撮る', '本部に送付する'] },
     ],
     extra: 'equipment'
   },
@@ -792,13 +1009,13 @@ const phases = {
     color: 'var(--phase-3)',
     label: 'フェーズ 3',
     tasks: [
-      { id: 't31', name: 'HP作成依頼（本部経由）', tag: 'Web' },
-      { id: 't32', name: 'Instagramアカウント作成・初期設定', tag: 'SNS' },
-      { id: 't33', name: 'Instagram 投稿開始', tag: 'SNS' },
-      { id: 't34', name: '手配りチラシデータ作成・発注（発注前に本部確認）', tag: '印刷物' },
-      { id: 't35', name: 'A1看板データ作成（物件オーナーへ設置許可確認）', tag: '看板' },
-      { id: 't36', name: '広告運用開始（リスティング・Meta、本部依頼か自社対応）', tag: '広告' },
-      { id: 't37', name: 'その他SNS開設（Twitter・TikTok等、任意）', tag: 'SNS・任意' },
+      { id: 't31', name: 'HP作成依頼（本部経由）', tag: 'Web', steps: ['本部に作成依頼の連絡をする', '店舗情報（住所・電話番号・営業時間・料金）を用意する', '写真データを本部に送る', '初稿が届いたら内容を確認してフィードバックする', '公開後は無料変更箇所と有料変更箇所を確認しておく'] },
+      { id: 't32', name: 'Instagramアカウント作成・初期設定', tag: 'SNS', steps: ['Instagramの店舗アカウントを作成する', 'プロフィール画像を設定する（ロゴ推奨）', 'プロフィール文を記入する（教室紹介・HP URL・体験申込方法）', 'ビジネスアカウントに切り替える', '本部のInstagram初期ガイドを確認する'] },
+      { id: 't33', name: 'Instagram投稿開始', tag: 'SNS', steps: ['オープン前から投稿を開始する（準備の様子・スタッフ紹介など）', 'ハッシュタグは地域名＋バク転・アクロバットを入れる', '最低週2〜3回の投稿ペースを維持する', 'ストーリーズも活用して体験申込を促す'] },
+      { id: 't34', name: '手配りチラシデータ作成・発注', tag: '印刷物', steps: ['共有ドライブ内のロゴ・テンプレートを使用する', '必ず発注前に本部の確認を受ける', 'ラクスルで発注する'] },
+      { id: 't35', name: 'A1看板データ作成', tag: '看板', steps: ['作成前に物件オーナーへ設置許可を確認する', '共有ドライブ内のロゴ等を使用してデータを作成する', '必ず発注前に本部の確認を受ける', '出力屋さんorラクするで発注する'] },
+      { id: 't36', name: '広告運用開始（リスティング・Meta）', tag: '広告', steps: ['本部依頼か自社対応か決める（本部依頼は別途料金）', '自社対応の場合はGoogle広告・Meta広告のアカウントを作成する', 'ターゲットエリアを半径3〜5kmに設定する', '体験レッスン申込を目標に設定する', '週1回は効果を確認して改善する'] },
+      { id: 't37', name: 'その他SNS開設（任意）', tag: 'SNS・任意', steps: ['TikTok：バク転動画は拡散しやすいのでおすすめ', 'Twitter/X：地域コミュニティとの交流に有効', 'PRタイムス：オープン告知記事を配信できる'] },
     ]
   },
   5: {
@@ -807,13 +1024,13 @@ const phases = {
     color: 'var(--phase-3)',
     label: 'フェーズ 3',
     tasks: [
-      { id: 't38', name: '求人媒体への掲載（マイナビ・Instagram等）', tag: '採用' },
-      { id: 't39', name: '面接・採用決定（チェックシート使用）', tag: '採用' },
-      { id: 't40', name: '業務委託契約書作成・締結（Gドライブテンプレート使用）', tag: '契約' },
-      { id: 't41', name: 'LINEグループ作成（本部SV・人事担当含む）、研修日程調整', tag: '研修' },
-      { id: 't42', name: 'オンライン座学研修（日曜10-13時 or 木曜17-20時）', tag: '研修' },
-      { id: 't43', name: '実技研修（練馬本店、1回3h以上×最低10日間）', tag: '研修' },
-      { id: 't44', name: 'デビュー前確認事項チェックリスト共有', tag: '研修' },
+      { id: 't38', name: '求人媒体への掲載', tag: '採用', steps: ['マイナビ・Indeed・バイトルなど求人媒体を選ぶ', 'Instagramを使った求人もおすすめ（本部も活用）', '募集要項を作成する（職種・スキル・待遇・交通費）', '掲載内容に「バクトレ」のブランド名を使う場合は本部確認が必要'] },
+      { id: 't39', name: '面接・採用決定', tag: '採用', steps: ['採用チェックシートを印刷または表示して面接に臨む', '優先度「高」の項目を重点的に確認する', '複数人で面接する場合は個別採点→協議で決定する', '採用後の育成計画を事前に考えておく', '採用決定後すぐに本部に連絡する'] },
+      { id: 't40', name: '業務委託契約書作成・締結', tag: '契約', steps: ['Gドライブ内のテンプレートをコピーする', '氏名・報酬額・開始日を記入する', '本部の確認を受ける', '双方署名して契約締結する'] },
+      { id: 't41', name: 'LINEグループ作成・研修日程調整', tag: '研修', steps: ['LINEグループを作成する（アクトレ代表・谷さん・ゆうすけ・あきよし・オーナー・研修受講者）', '研修受講者の氏名・年齢・経歴・競技歴・職歴を共有する', '研修日程を全員で調整する'] },
+      { id: 't42', name: 'オンライン座学研修', tag: '研修', steps: ['毎週日曜10:00〜13:00 または毎週木曜17:00〜20:00', '日程は予告なく変更になる可能性あり', '修了後に確認テストあり', '加盟後半年以内は無料（加盟金に含む）'] },
+      { id: 't43', name: '実技研修（練馬本店）', tag: '研修', steps: ['場所：練馬本店（基本）', '1回3時間以上を最低10日間（理解度によって変動）', '遠方の場合は3日間終日で集中研修', 'デビューまで約1〜2ヶ月を予定', '交通費・宿泊費は加盟店負担'] },
+      { id: 't44', name: 'デビュー前確認事項チェックリスト共有', tag: '研修', steps: ['確認事項チェックリストをもとにオーナーと講師で最終確認する', '運営ルール・緊急時対応・お客様対応を確認する', '本部SVの承認を受けてデビューOKをもらう'] },
     ],
     extra: 'hiring'
   },
@@ -823,10 +1040,10 @@ const phases = {
     color: 'var(--phase-3)',
     label: 'フェーズ 3',
     tasks: [
-      { id: 't45', name: '最終チェックリスト 全項目確認（両者）', tag: '最終確認' },
-      { id: 't46', name: '決済システム（Airレジ・Square・PayPay）動作確認', tag: 'システム' },
-      { id: 't47', name: '予約システム動作確認', tag: 'システム' },
-      { id: 't48', name: 'スタッフ最終ミーティング', tag: 'オペレーション' },
+      { id: 't45', name: '最終チェックリスト 全項目確認', tag: '最終確認', steps: ['本部・オーナー双方で最終チェックリストを確認する', '未完了項目がないかを確認する', 'オープン日を正式に確定する'] },
+      { id: 't46', name: '決済システム動作確認', tag: 'システム', steps: ['Airレジでテスト決済をする', 'Squareカードリーダーでテスト決済をする', 'PayPayのQRコードで確認する', 'レシート印刷ができるか確認する'] },
+      { id: 't47', name: '予約システム動作確認', tag: 'システム', steps: ['予約受付ページが正しく表示されるか確認する', 'テスト予約を入れて確認する', '予約通知メール・LINEが届くか確認する'] },
+      { id: 't48', name: 'スタッフ最終ミーティング', tag: 'オペレーション', steps: ['開業初日の流れを全員で確認する', '緊急時の連絡先を共有する', 'お客様対応・レッスン進行の最終確認をする'] },
     ]
   },
   7: {
@@ -835,16 +1052,18 @@ const phases = {
     color: 'var(--phase-4)',
     label: 'フェーズ 4',
     tasks: [
-      { id: 't21', name: '台帳記入（日次売上管理）', tag: '経営管理' },
-      { id: 't22', name: 'オープン後振り返りMTG', tag: '本部との打ち合わせ' },
-      { id: 't23', name: 'お客様フォロー・LINE配信', tag: '顧客管理' },
+      { id: 't49', name: '台帳記入（日次売上管理）', tag: '経営管理', steps: ['毎日レッスン終了後に売上を記録する', '毎月7日までに売上台帳を本部指定のドライブに格納する', '提出が遅れると15日の振込が遅延するので注意'] },
+      { id: 't50', name: 'オープン後振り返りMTG', tag: '本部との打ち合わせ', steps: ['オープンから2週間後に本部とMTGをする', 'アフターフォロー研修（3〜4時間）を実施する', '課題や改善点を共有する'] },
+      { id: 't51', name: 'お客様フォロー・LINE配信', tag: '顧客管理', steps: ['体験参加者に翌日フォローLINEを送る', '入会者には定期的にお知らせを配信する', 'キャンペーン・イベント情報を発信する', '退会防止のため継続率をモニタリングする'] },
     ]
   }
 };
 
 // Load state
 let completed = JSON.parse(localStorage.getItem('bakutore-completed') || '{}');
+let stepCompleted = JSON.parse(localStorage.getItem('bakutore-steps') || '{}');
 let currentPhase = 1;
+let currentTaskId = null;
 
 // ============================================================
 // RENDER
@@ -860,7 +1079,7 @@ function renderTasks(phaseId) {
     const isDone = !!completed[task.id];
     const div = document.createElement('div');
     div.className = 'task-card' + (isDone ? ' completed' : '');
-    div.onclick = () => toggleTask(task.id, div);
+    div.onclick = () => openDetail(task);
     div.innerHTML = `
       <div class="task-check">${isDone ? '✓' : ''}</div>
       <div class="task-body">
@@ -872,18 +1091,83 @@ function renderTasks(phaseId) {
     list.appendChild(div);
   });
 
-  if (phase.extra === 'hiring') {
-    extra.innerHTML = renderHiringSheet();
+  if (phase.extra === 'hiring') extra.innerHTML = renderHiringSheet();
+  if (phase.extra === 'equipment') extra.innerHTML = renderEquipmentList();
+}
+
+// タスク詳細パネルを開く
+function openDetail(task) {
+  currentTaskId = task.id;
+  document.getElementById('tasks-panel').style.display = 'none';
+  const panel = document.getElementById('detail-panel');
+  panel.classList.add('visible');
+
+  document.getElementById('detail-title').textContent = task.name;
+  document.getElementById('detail-tag').textContent = task.tag;
+
+  const btn = document.getElementById('detail-complete-btn');
+  btn.textContent = completed[task.id] ? '✓ 完了済み' : '完了にする';
+  btn.className = 'detail-complete-btn' + (completed[task.id] ? ' done' : '');
+
+  const stepsEl = document.getElementById('detail-steps');
+  stepsEl.innerHTML = '';
+  (task.steps || []).forEach((step, i) => {
+    const key = `${task.id}_s${i}`;
+    const isDone = !!stepCompleted[key];
+    const div = document.createElement('div');
+    div.className = 'step-item' + (isDone ? ' done' : '');
+    div.innerHTML = `
+      <div class="step-num">${isDone ? '✓' : i + 1}</div>
+      <div class="step-text">${step}</div>
+      <div class="step-check" onclick="toggleStep('${task.id}', ${i}, this.closest('.step-item'))">${isDone ? '✓' : ''}</div>
+    `;
+    stepsEl.appendChild(div);
+  });
+
+  // スマホのとき一番上にスクロール
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function closeDetail() {
+  document.getElementById('detail-panel').classList.remove('visible');
+  document.getElementById('tasks-panel').style.display = '';
+  currentTaskId = null;
+}
+
+function toggleStep(taskId, stepIndex, el) {
+  const key = `${taskId}_s${stepIndex}`;
+  stepCompleted[key] = !stepCompleted[key];
+  localStorage.setItem('bakutore-steps', JSON.stringify(stepCompleted));
+
+  if (stepCompleted[key]) {
+    el.classList.add('done');
+    el.querySelector('.step-num').textContent = '✓';
+    el.querySelector('.step-check').textContent = '✓';
+  } else {
+    el.classList.remove('done');
+    const phase = Object.values(phases).find(p => p.tasks.find(t => t.id === taskId));
+    const task = phase?.tasks.find(t => t.id === taskId);
+    el.querySelector('.step-num').textContent = stepIndex + 1;
+    el.querySelector('.step-check').textContent = '';
   }
-  if (phase.extra === 'equipment') {
-    extra.innerHTML = renderEquipmentList();
-  }
+}
+
+function toggleDetailComplete() {
+  if (!currentTaskId) return;
+  completed[currentTaskId] = !completed[currentTaskId];
+  localStorage.setItem('bakutore-completed', JSON.stringify(completed));
+
+  const btn = document.getElementById('detail-complete-btn');
+  btn.textContent = completed[currentTaskId] ? '✓ 完了済み' : '完了にする';
+  btn.className = 'detail-complete-btn' + (completed[currentTaskId] ? ' done' : '');
+
+  updateProgress();
+  updateNavChecks();
 }
 
 function toggleTask(taskId, el) {
   completed[taskId] = !completed[taskId];
   localStorage.setItem('bakutore-completed', JSON.stringify(completed));
-
   if (completed[taskId]) {
     el.classList.add('completed');
     el.querySelector('.task-check').textContent = '✓';
@@ -917,21 +1201,30 @@ function updateNavChecks() {
 }
 
 function switchPhase(phaseId, el) {
-  // Deactivate all
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   el.classList.add('active');
-
   currentPhase = phaseId;
   const phase = phases[phaseId];
-
   document.getElementById('section-title').textContent = phase.title;
   document.getElementById('section-sub').textContent = phase.sub;
   document.getElementById('phase-tag').style.color = phase.color;
   document.getElementById('phase-tag').style.borderColor = phase.color;
   document.getElementById('phase-tag').textContent = phase.label;
-
-  renderTasks(phaseId);
+  closeDetail();
   closeChat();
+  renderTasks(phaseId);
+  // スマホはサイドバーを閉じる
+  closeSidebar();
+}
+
+// スマホ用サイドバー
+function toggleSidebar() {
+  document.querySelector('.sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('open');
+}
+function closeSidebar() {
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('open');
 }
 
 // ============================================================
